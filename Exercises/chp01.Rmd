@@ -1,0 +1,44 @@
+---
+title: "PRML-Exercises-Chapter-01"
+author: "bourneli"
+output: html_document
+---
+## 1.1 (*) www
+
+计算损失函数的最优解，
+$E(w)=\frac{1}{2}\sum_{n=1}^{N}(\sum_{j=0}^{M}w_jx_n^j-t_n)^2$
+
+偏导数为0，
+$$\frac{\partial E(w)}{w_i}
+  = \sum_{n=1}^{N}(\sum_{j=0}^{M}w_jx_n^j-t_n)x_n^i
+  = 0
+$$
+
+最后化简，得到最终答案,注意左边两个$\Sigma$可以交换位置的。
+
+$$
+  \sum_{n=1}^{N}\sum_{j=0}^{M}w_jx_n^{i+j} 
+  = \sum_{j=0}^{M}w_j\sum_{n=1}^{N}x_n^{i+j} 
+  =\sum_{j=0}^{M}w_jA_{ij} = \sum_{n=1}^{N}t_nx_n^i=T_i
+$$
+
+## 1.2 (*)
+
+与1.1题类似，考察了在L2正规化情况下的最有计算方案，此时损失函数为
+
+$$
+  \widetilde{E}(w)=\frac{1}{2}\sum_{n=1}^{N}(\sum_{j=0}^{M}w_jx_n^j-t_n)^2
+   + \frac{\lambda}{2}\|w\|^2
+$$
+
+
+此时引入了一个参数$\lambda$，人工输入。仍然求偏导，
+
+$$\frac{\partial \widetilde{E}(w)}{w_i}
+  = \sum_{n=1}^{N}(\sum_{j=0}^{M}w_jx_n^j-t_n)x_n^i + \lambda w_i
+  = 0
+$$
+
+其他类似，这里省略。
+
+
