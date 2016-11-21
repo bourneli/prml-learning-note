@@ -3,7 +3,7 @@ title: "PRML-Exercises-Chapter-01"
 author: "bourneli"
 output: html_document
 ---
-## 1.1 (*) www
+# 1.1 (*) www
 
 计算损失函数的最优解，
 $E(w)=\frac{1}{2}\sum_{n=1}^{N}(\sum_{j=0}^{M}w_jx_n^j-t_n)^2$
@@ -22,7 +22,9 @@ $$
   =\sum_{j=0}^{M}w_jA_{ij} = \sum_{n=1}^{N}t_nx_n^i=T_i
 $$
 
-## 1.2 (*)
+# 1.2 (*)
+
+
 
 与1.1题类似，考察了在L2正规化情况下的最有计算方案，此时损失函数为
 
@@ -41,4 +43,21 @@ $$
 
 其他类似，这里省略。
 
+# 1.3 (*)
 
+苹果的概率列举所有可能，使用条件概率即可
+
+$$
+  p(apple) = p(red)p(apple|red) + p(blue)p(apple|blue) + p(green)p(apple|green) \\
+           = 0.2 \times 0.3 + 0.2 \times 0.5 + 0.6 \times 0.3 = 0.34
+$$
+
+
+在得到橘子的情况下，计算从绿色罐中得到概率不太好计算，但是可以用贝叶斯计算这个后置概率。这里要强调一点，**前置概率**，即任何一个水果从绿色罐中得到的概率是0.6。
+
+$$
+  p(green|orange) = \frac{p(orange|green)p(green)}{p(orange)} \\
+                  = \frac{0.3 \times 0.6}{0.2\times 0.4 + 0.2 \times 0.5 + 0.6 \times 0.3}  = 0.5
+$$
+
+可以发现，这个后验概率比先验概率要小。因为橘子在绿色的概率比较小，拖了绿色先验概率的后腿。
