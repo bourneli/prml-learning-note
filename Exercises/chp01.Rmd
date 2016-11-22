@@ -3,7 +3,7 @@ title: "PRML-Exercises-Chapter-01"
 author: "bourneli"
 output: html_document
 ---
-# 1.1 (*) www
+# 1.1 (*)  
 
 计算损失函数的最优解，
 $E(w)=\frac{1}{2}\sum_{n=1}^{N}(\sum_{j=0}^{M}w_jx_n^j-t_n)^2$
@@ -61,3 +61,62 @@ $$
 $$
 
 可以发现，这个后验概率比先验概率要小。因为橘子在绿色的概率比较小，拖了绿色先验概率的后腿。
+
+
+# 1.5 (*)
+
+考察期望计算符号性质
+
+$$
+  \begin{align}
+  var[f(x)] &= E[(f(x)-E[f(x)])^2] \\
+            &= E[(f(x))^2+E[f(x)]^2-2f(x)E[f(x)]] \\
+            &= E[(f(x))^2]+E[f(x)]^2-2E[f(x)]E[f(x)] \\
+            &= E[(f(x))^2]-E[f(x)]^2
+  \end{align}
+$$
+
+# 1.6 (*)
+
+仍然考察期望符号性质，协方差按性质展开,x,y独立有$E(xy)=E(x)E(y)$
+
+$$
+  \begin{align}
+    cov(x,y) &= E[(x-\bar{x}(y-\bar{y})] \\
+            &= E[xy]- 2\bar{x}\bar{y}+\bar{x}\bar{y} \\
+            &= E[x]E[y] - \bar{x}\bar{y} = 0
+  \end{align}
+$$
+
+
+# 1.11 (*)
+
+考察使用最大释然法求解正太分布的过程。目标函数如下
+
+$$
+  J(\mu, \sigma^2) = \ln{p(X|\mu,\sigma^2)} 
+  = -\frac{1}{2\sigma^2}\sum_{n=1}^{N}(x_n-\mu)^2-\frac{N}{2}\ln{\sigma^2}-\frac{N}{2}\ln{(2\pi)}
+$$
+
+
+目标函数对$\mu$求偏导，并且等于0
+$$
+  \frac{\partial{J(\mu,\sigma^2)}}{\partial{\mu}}
+  = \frac{1}{\sigma^2}\sum_{n=1}^{N}{(x_n-\mu)} = 0
+  \Rightarrow \mu=\frac{1}{N}\sum_{n=1}^{N}x_n
+$$
+
+
+
+目标函数对$\sigma^2$求偏导(**不是$\sigma$**)，并且等于0，
+
+$$
+   \frac{\partial{J(\mu,\sigma^2)}}{\partial{\sigma^2}} 
+   = \frac{1}{2(\sigma^2)^2}\sum_{n=1}^{N}(x_n-\mu)^2-\frac{N}{2\sigma^2} = 0
+   \Rightarrow \sigma^2 = \frac{1}{N}\sum_{n=1}^{N}(x_n-\mu)^2
+$$
+
+
+# 1.12 (**)
+
+这个问题解释了为什么用$\frac{\frac{1}{N}\sum_{n=1}^{N}(x_n-\mu)^2}{n-1}$来评估正太分布的方差，其中$\mu$是样本均值。
