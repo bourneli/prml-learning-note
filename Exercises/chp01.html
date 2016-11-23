@@ -207,7 +207,53 @@ $(document).ready(function () {
 </div>
 <div id="section-6" class="section level1">
 <h1>1.12 (**)</h1>
-<p>这个问题解释了为什么用<span class="math">\(\frac{\frac{1}{N}\sum_{n=1}^{N}(x_n-\mu)^2}{n-1}\)</span>来评估正太分布的方差。</p>
+<p>这个问题解释了为什么用<span class="math">\(\frac{\frac{1}{N}\sum_{n=1}^{N}(x_n-\mu)^2}{n-1}\)</span>来评估正太分布的方差，其中<span class="math">\(\mu\)</span>是样本均值。</p>
+<p>已知下面等式</p>
+<p><span class="math">\[
+  E[x] = \int_{-\infty}^{+\infty}{N(x|\mu, \sigma^2)}x dx = \mu  \qquad (1.49) \\
+  E[x^2] = \int_{\infty}^{+\infty}{N(x|\mu, \sigma^2)}x^2 dx = \mu^2 + \sigma^2 (1.50) 
+\]</span></p>
+<p>当<span class="math">\(m=n\)</span>,直接使用公式(1.50)，有<span class="math">\(E[x_n^2]=\mu^2+\sigma^2\)</span></p>
+<p>当<span class="math">\(m \ne n\)</span>,由于<span class="math">\(x_m\)</span>,<span class="math">\(x_n\)</span>独立,所以<span class="math">\(E[x_mx_n]=E[x_n]E[x_m]=\mu^2\)</span></p>
+<p>证毕。下面证明(1.57)和(1.58)</p>
+<p><span class="math">\[
+  E[\mu_{ML}] = \mu \qquad (1.57) \\
+  E[\sigma^2_{ML}] = \left(\frac{N-1}{N}\right)\sigma^2 \qquad (1.58)
+\]</span></p>
+<p>证明(1.57)</p>
+<p><span class="math">\[
+  E[\mu_{ML}] = E\left[\frac{1}{N}\sum_{n=1}^Nx_n \right] 
+  = \frac{1}{N}\sum_{n=1}^NE[x_n] 
+  = \frac{1}{N}\sum_{n=1}^N\mu
+  = \mu
+\]</span></p>
+<p>证明(1.58)</p>
+<p><span class="math">\[
+  \begin{align}
+    E[\sigma^2_{ML}] &amp;= E\left[\frac{1}{N}\sum_{n=1}^{N}(x_n-\frac{1}{N}\sum_{m=1}^Nx_m)^2 \right] \\
+    &amp;= \frac{1}{N}\sum_{n=1}^N\left( E[x_n^2] 
+      + E\left[(\frac{1}{N}\sum_{m=1}^Nx_m)^2\right]
+      -2E\left[x_n\frac{1}{N}\sum_{m=1}^{N}x_m\right]  \right) \\
+    &amp;= \frac{1}{N}\sum_{n=1}^N\left(\mu^2+\sigma^2
+        + \frac{1}{N^2}E\left[\sum_{i=1}^N\sum_{j=1}^Nx_ix_j\right] 
+        - 2E\left[\frac{x_n}{N}\sum_{m=1}^Nx_m\right]  \right) \\
+    &amp;= \mu^2 + \sigma^2 + \frac{1}{N^2}(N\sigma^2+(N\mu)^2) 
+      - \frac{2}{N^2}E\left[\sum_{n=1}^{N}\sum_{m=1}^{N}x_nx_m\right] \\
+    &amp;= 2\mu^2+(1+\frac{1}{N})\sigma^2-\frac{2}{N^2}((N\mu)^2+N\sigma^2) \\
+    &amp;= \frac{N-1}{N}\sigma^2
+  \end{align}
+\]</span></p>
+<p>所以用<span class="math">\(\sigma^2=\frac{N}{N-1}\sigma_{ML}^2 = \frac{1}{N-1}\sum_{n=1}^N(x_n-\mu_{ML})^2\)</span>估计方差！</p>
+</div>
+<div id="section-7" class="section level1">
+<h1>1.13</h1>
+<p>此题说明了，如果已知真实均值<span class="math">\(\mu\)</span>，然后直接用<span class="math">\(\sigma_{ML}^2=\frac{1}{N}\sum_{n=1}^M{(x_n-\mu)^2}\)</span>得到的方差是无偏的，不需要将分母换成<span class="math">\(N-1\)</span>。直接计算上述方差的期望，可以非常容易得到结果，这里省略。</p>
+<p>正太分布的总结</p>
+<ul>
+<li>样本均值可以直接估计分布均值</li>
+<li>样本方差估计分布方差是有偏的，需要修正，修正的方法是将分母换成<span class="math">\(N-1\)</span></li>
+<li>如果已知真实均值，那么样本方差估计分布方差是无偏的</li>
+</ul>
 </div>
 
 
