@@ -170,7 +170,7 @@ $$
 
 所以用$\sigma^2=\frac{N}{N-1}\sigma_{ML}^2 = \frac{1}{N-1}\sum_{n=1}^N(x_n-\mu_{ML})^2$估计方差！
 
-# 1.13
+# 1.13(*)
 
 此题说明了，如果已知真实均值$\mu$，然后直接用$\sigma_{ML}^2=\frac{1}{N}\sum_{n=1}^M{(x_n-\mu)^2}$得到的方差是无偏的，不需要将分母换成$N-1$。直接计算上述方差的期望，可以非常容易得到结果，这里省略。
 
@@ -179,4 +179,103 @@ $$
 * 样本均值可以直接估计分布均值
 * 样本方差估计分布方差是有偏的，需要修正，修正的方法是将分母换成$N-1$
 * 如果已知真实均值，那么样本方差估计分布方差是无偏的
+
+# 1.17(**)
+
+使用分部积分，证明$\Gamma$函数与阶乘的关系。
+
+递归关系，
+
+$$
+  \begin{align}
+  \Gamma(x+1) &= \int_0^{+\infty}{u^xe^{-u}du} \\
+              &= -\int_0^{+\infty}u^x d(e^{-u}) \\
+              &= -\left[u^xe^{-u}|_0^{+\infty}-\int_0^{+\infty}e^{-u}d(u^x) \right] \\
+              &= \int_0^{+\infty}xu^{x-1}e^{-u}dx \\
+              &= x\Gamma(x)
+  \end{align}
+$$
+
+初始化条件，
+
+
+$$
+  \Gamma(1) = \int_0^{+\infty}e^{-u}du 
+            = -\inf_0^{+\infty}e^{-u}d(-u)
+            = - [e^{-u}]|^{+\infty}_0 = 1
+$$
+
+
+根据上面两个条件，在x为整数时，很容易得到$\Gamma(x+1)=x!$
+
+# 1.21 (**)
+
+对于二元分类，通过某算法，找到了范围$R_1$和$R_1$，使得
+
+* $x \in R_1, p(C_1|x) \ge P(C_2|x)$
+* $x \in R_2, P(C_2|x) \ge P(C_1|x)$
+
+这样可以使得p(mistake)最小，（见教材1.5.1）。所以，据此，可以推导p(mistake)范围如下
+
+$$
+  \begin{align}
+    p(mistake) &= \int_{R_1} p(C_2, x) dx + \int_{R_2} p(C_1, x) dx \\
+               &= \int_{R_1} p(C_2|x)p(x) dx + \int_{R_2} p(C_1|x)p(x) dx \\
+               &\le \int_{R_1} (p(C_1|x)p(C_2|x))^{\frac{1}{2}}p(x) dx 
+                     + \int_{R_2} (p(C_1|x)P(C_2|x))^{\frac{1}{2}} p(x) dx \\
+               &= \int (p(C_1|x)p(C_2|x))^{\frac{1}{2}}p(x) dx \\
+               &= \int (p(C_1|x)p(x)p(C_2|x)p(x))^{\frac{1}{2}} dx \\
+               &= \int \left(p(C_1,x)p(C_2,x)\right)^{\frac{1}{2}} dx \\
+  \end{align}
+$$
+
+证毕。
+
+# 1.22 (*)
+
+根据条件，等价于每个错误的损失权重相等，与不使用损失矩阵的情况等价。 推导方法如下：
+
+$$
+  \sum_k(1-I_{kj})P(C_k|x) = \sum_kP(C_k|x) - \sum_kI_{kj}p(C_k|x)
+  = 1- p(C_j|x)
+$$
+
+最小化上面公式，等价于最大化$p(C_j|x)$。
+
+
+# 1.29 (*)
+
+考察凸函数与Jensen不等式的活用。Jenen不等式，定义在**凸函数**上，有
+
+$$
+  E(\sum_{i=1}^M \lambda_i x_i) \le \sum_{i=1}^M \lambda_i f(x_i)
+$$
+
+如果$f(x)$是凹函数，那么Jessen不等式需要反号，如下
+
+$$
+  E(\sum_{i=1}^M \lambda_i x_i) \ge \sum_{i=1}^M \lambda_i f(x_i)
+$$
+
+对于x熵$E[x]=-\sum_{i=1}^M p(x_i) \ln{p(x_i)}= \sum_{i=1}^M p(x_i) \ln \frac{1}{p(x_i)}$,其中$\ln{x}$是**凹函数**，所以有
+
+
+$$
+  H[x]  = \sum_{i=1}^M p(x_i) \ln \frac{1}{p(x_i)} \le 
+        \ln{\sum_{i=1}^M p(x_i) \frac{1}{p(x_i)}} 
+        = \ln{M}
+$$
+
+# 1.30 (*)
+
+此题虽然是考察KL散度，但是主要是考察正太分布的相关二次，一次积分。KL散度用于度量理论分布与模拟分布的差异。首席，会议一下需要用到的正太分布积分
+
+$$
+  \int_{-\infty}^{+\infty} N(x|\mu,\sigma^2) dx = 1 \qquad (1) \\
+  \int_{-\infty}^{+\infty} N(x|\mu,\sigma^2)x dx = \mu \qquad (2) \\
+  \int_{-\infty}^{+\infty} N(x|\mu,\sigma^2)x^2 dx = \mu^2+\sigma^2 \qquad (3) \\
+$$
+
+
+
 
