@@ -348,6 +348,19 @@ $(document).ready(function () {
   \end{align}
 \]</span></p>
 </div>
+<div id="section-13" class="section level1">
+<h1>1.31 (**)</h1>
+<p>此题考查了熵与互信息的关系。由联合分布的熵，可得到（证明教材没有，参考<a href="https://zh.wikipedia.org/wiki/%E6%9D%A1%E4%BB%B6%E7%86%B5">wiki</a>）<span class="math">\(H[x,y] = H[x|y] + H[x]\)</span>。又由于互信息<span class="math">\(I(x,y)=H[y]-H[y|x] \ge 0\)</span>，所以有<span class="math">\(H[x,y] \le H[x] + H[y]\)</span>。当x,y独立时，互信息<span class="math">\(I(x,y)=0\)</span>,此时等式相等。</p>
+<p>还有一个直观的解释，熵是信息量的度量。如果x,y有相关性，那么知道了x，可以知道部分y，那么<span class="math">\(H[y|x]\)</span>包含的信息就是部分<span class="math">\(H[y]\)</span>的信息。如果x,y独立，那么知道x不会得到任何y的信息，那么<span class="math">\(H[y|x]\)</span>包含的信息就是全部<span class="math">\(H[y]\)</span>。</p>
+</div>
+<div id="section-14" class="section level1">
+<h1>1.33 (**)</h1>
+<p>将条件熵展开,参考<a href="https://zh.wikipedia.org/wiki/%E6%9D%A1%E4%BB%B6%E7%86%B5">这里</a></p>
+<p><span class="math">\[
+  H[y|x] = \sigma_i\sigma_j p(x_j) p(y_i|x_j)\ln{p(y_i|x_j)} = 0
+\]</span></p>
+<p>所以每个元素都等于0， 且<span class="math">\(p(x_j) &gt; 0\)</span>,那么<span class="math">\(p(y_i|x_j)\ln{p(y_i|x_j)} = 0\)</span>。因为<span class="math">\(p\ln{p}\)</span>只有当p=0或1时为0。<span class="math">\(p(y_i|x_j) = 0 或 1\)</span>，并且所有<span class="math">\(p(y_i|x_j)\)</span>之和为1，所以必有一个<span class="math">\(p(y_i|x_j)=1\)</span>其他的等于0.</p>
+</div>
 
 
 
