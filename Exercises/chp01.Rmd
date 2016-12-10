@@ -310,6 +310,99 @@ $H[y|x] = \sigma_i\sigma_j p(x_j) p(y_i|x_j)\ln{p(y_i|x_j)} = 0$。
 
 # 1.35 (*)
 
-高斯微积分
+利用泛函分析，得到的最优函数，代入熵计算方法，计算过程如下
+
+$$
+  \begin{align}
+  H[x] &= -\int_{-\infty}^{+\infty} N(x|\mu,\sigma^2)
+          \ln{\left( \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x-\mu)^2}{2\sigma^2}}     \right)} dx \\
+       &= -\int_{-\infty}^{+\infty} N(x|\mu,\sigma^2)
+          \left( \ln{\frac{1}{\sqrt{2\pi}\sigma}} -\frac{(x-\mu)^2}{2\sigma^2} \right) dx \\ 
+       &= -\ln{\frac{1}{\sqrt{2\pi}\sigma}} + \int_{-\infty}^{+\infty}{\frac{x^2+\mu^2-2\mu x}{2\sigma^2}N(x|\mu,\sigma^2)} dx \\
+       &= \ln{\sqrt{2\pi}\sigma} + \frac{1}{2\sigma^2}(\mu^2+\sigma^2+\mu^2-2\mu^2) \\
+       &= \frac{1}{2}(1+ln{(2\pi\sigma^2)})
+  \end{align}
+$$
+
+最优熵，与均值无关，只与方差有关。
+
+# 1.37 (*)
+
+只需理解下面计算方法，即可很容易求证
+
+$$
+  \begin{align}
+    H[x] &= -\int_{-\infty}^{+infty} p(x) \ln{p(x)} dx \\
+         &= -\int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} p(x,y) dy \ln{p(x)} dx \\
+         &= -\int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} p(x,y) \ln{p(x)} dy dx \\
+  \end{align}
+$$
+
+可以从离散概率联想，$p(X=x) = \sum_{i=1}^{N}  p(X=x,Y=i)$
 
  
+ 
+# 1.38 (*)
+
+使用数学归纳法，当M=2时，由条件易得。
+
+假设当$M=K$时成立，即$f(\sum_{i=1}^K {\lambda_i x_i}) \le \sum_{i=1}^K \lambda_i f(x_i)$。
+
+当$M=K+1$时，
+
+$$
+  \begin{align}
+    f(\sum_{i=1}^{K+1} {\lambda_i x_i}) &= f\left(\sum_{i=1}^{K} ({\lambda_i x_i}) + \lambda_{K+1} x_{K+1} \right) \\
+      &= f\left((1-\lambda_{K+1})\sum_{i=1}^{K} ({\frac{\lambda_i}{1-\lambda_{K+1}} x_i}) + \lambda_{K+1} x_{K+1} \right) \\
+      &\le (1-\lambda_{K+1})f\left(\sum_{i=1}^{K} {\frac{\lambda_i}{1-\lambda_{K+1}} x_i} \right) + \lambda_{K+1}f(x_{K+1}) \qquad (1) \\
+      &\le (1-\lambda_{K+1}) \frac{\lambda_i}{1-\lambda_{K+1}} \sum_{i=1}^K f(x_i)    + \lambda_{K+1}f(x_{K+1}) \qquad (2) \\
+      &= \sum_{i=1}^{K+1} \lambda_i f(x_i)
+  \end{align}
+$$
+
+证毕，其中(1)通过M=2时变化得到，(2)通过假设M=k时得到。
+ 
+ 
+# 1.39 (***)
+
+$H[x] = -(\frac{2}{3}\ln{\frac{2}{3} + \frac{1}{3}\ln{\frac{1}{3}}}) = 0.6365142$
+
+$H[y] = -(\frac{1}{3}\ln{\frac{1}{3}} + \frac{2}{3}\ln{\frac{2}{3}}) = 0.6365142$
+
+$H[x,y] = -(\frac{1}{3}\ln{\frac{1}{3}} + \frac{1}{3}\ln{\frac{1}{3}}  + \frac{1}{3}\ln{\frac{1}{3}}) =  1.098612$ x,y并集信息量
+
+$H[x|y] = H[x,y] - H[y] = 0.4620978$  x中剔除交集部分信息量
+
+$H[y|x] = H[x,y] - H[x] = 0.4620978$ y中剔除x部分信息量
+
+$I[x,y] = H[x] - H[x|y] = 0.174416$ x,y交集信息量，如果独立，那么为0
+
+# 1.40 (*)
+
+$\ln$是凹函数，且是单调递增函数，所以利用1.115不等号需要反向，即$f(\sum_{i=1}^M {\lambda_i x_i}) \ge \sum_{i=1}^M \lambda_i f(x_i)$。将$\ln$代入此不等式，有
+
+
+$$
+  \ln{\sum^M \lambda_i x_i} \ge \sum^M\lambda_i\ln{x_i} \\
+  \sum^M\lambda_i x_i \ge \prod^Mx_i^{\lambda_i} \qquad 根据单调递增  \\ 
+ \frac{1}{M}\sum^M x_i \ge \left(\prod^Mx_i \right)^{\frac{1}{M}}  \qquad 令 \lambda_i = \frac{1}{M},证毕
+$$
+
+# 1.41 (*)
+
+信息计算，原理类似集合计算，将微积分融入其中，感觉触类旁通。直接根据定义计算，逐步化简。
+
+$$
+  \begin{align}
+  I[x,y] &= -\int\int p(x,y) \ln\left( {\frac{p(x)p(y)}{p(x,y)}} \right) dx dy \\
+         &= -\int\int p(x,y) \ln\left( p(x)p(y) \right) dx dy +\int\int p(x,y) \ln\left( p(x,y) \right) dx dy \\
+         &=  -\int\int p(x,y) \ln {p(x)} dx dy -\int\int p(x,y) \ln {p(y)} dx dy   - H[x,y] \\
+         &=  -\int \left(\int p(x,y) dy \right) \ln {p(x)} dx -\int \left(\int p(x,y)dx\right) \ln {p(y)}  dy   - H[x,y] \\
+         &=  -\int p(x) \ln{p(x)} dx -\int p(y) \ln{p(y)}  dy   - H[x,y] \\
+         &= H[x] + H[y] - H[x,y] \\
+         &= H[x,y] - H[y|x] + H[y] \\
+         &= H[y] - H[y|x] \\
+  \end{align} 
+$$
+
+
